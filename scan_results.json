@@ -2,19 +2,16 @@
   "192.168.100.1": [
     {
       "port": 80,
-      "service": "http",
       "banner": ""
     }
   ],
   "192.168.100.12": [
     {
-      "port": 139,
-      "service": "netbios-ssn",
+      "port": 135,
       "banner": ""
     },
     {
-      "port": 135,
-      "service": "msrpc",
+      "port": 139,
       "banner": ""
     }
   ]
