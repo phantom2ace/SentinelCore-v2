@@ -8,13 +8,13 @@
   ],
   "192.168.100.12": [
     {
-      "port": 139,
-      "service": "netbios-ssn",
+      "port": 135,
+      "service": "msrpc",
       "banner": ""
     },
     {
-      "port": 135,
-      "service": "msrpc",
+      "port": 139,
+      "service": "netbios-ssn",
       "banner": ""
     }
   ]

@@ -155,6 +155,10 @@ def save_results(results, path="scan_results.json", html=False):
             with open(html_path, "w", encoding="utf-8") as f:
                 f.write(html_out)
             print(f"Also wrote HTML report to {html_path}")
+            # NEW: auto-open in browser
+            import webbrowser
+            webbrowser.open(f"file://{os.path.abspath(html_path)}")
+
         except Exception as e:
             print(f"Failed to generate HTML: {e}")
 
