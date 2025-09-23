@@ -75,7 +75,6 @@ def run_ping(ip):
     if system == "windows":
         cmd = ["ping", "-n", "1", "-w", "500", ip]
     else:
-        # -c 1 (send 1 ping), -W 1 (timeout 1s)
         cmd = ["ping", "-c", "1", "-W", "1", ip]
     try:
         res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -85,14 +84,12 @@ def run_ping(ip):
 
 
 # -------------------------
-# Discovery (ARP then ping fallback)
+# Discovery
 # -------------------------
 def arp_scan(subnet_cidr, timeout=2):
-    """ARP scan using scapy; returns list of {'ip','mac','vendor'(opt)}"""
     if srp is None:
         print("[!] scapy not available; skipping ARP scan.")
         return []
-
     print(f"[+] ARP scan on {subnet_cidr} ...")
     try:
         arp = ARP(pdst=subnet_cidr)
@@ -105,7 +102,6 @@ def arp_scan(subnet_cidr, timeout=2):
     except Exception as e:
         print(f"[!] ARP scan failed: {e}")
         return []
-
     hosts = []
     for _, r in answered:
         hosts.append({"ip": r.psrc, "mac": r.hwsrc})
@@ -114,7 +110,6 @@ def arp_scan(subnet_cidr, timeout=2):
 
 
 def ping_sweep(subnet_cidr):
-    """Ping sweep across subnet, returns list of {'ip','mac':'N/A'}"""
     print(f"[+] Ping sweep on {subnet_cidr} ...")
     hosts = []
     try:
@@ -122,8 +117,6 @@ def ping_sweep(subnet_cidr):
     except Exception as e:
         print(f"[!] Invalid subnet: {e}")
         return hosts
-
-    # iterate hosts; this is slower but works when ARP is blocked
     for ip in net.hosts():
         ip = str(ip)
         if run_ping(ip):
@@ -132,21 +125,15 @@ def ping_sweep(subnet_cidr):
     return hosts
 
 
-# -------------------------
-# MAC vendor enrichment
-# -------------------------
 def enrich_vendors(hosts):
-    """If mac-vendor-lookup available, add 'vendor' to host dicts."""
     if MacLookup is None:
         for h in hosts:
             h["vendor"] = ""
         return hosts
-
     try:
         mac_lookup = MacLookup()
     except Exception:
         mac_lookup = None
-
     for h in hosts:
         h["vendor"] = ""
         mac = h.get("mac")
@@ -159,10 +146,9 @@ def enrich_vendors(hosts):
 
 
 # -------------------------
-# Scanning: nmap fallback -> TCP connect
+# Scanning
 # -------------------------
 def nm_scan_host(host_ip, top_ports=NMAP_TOP_PORTS):
-    """Use python-nmap wrapper to do -sV --top-ports (if available)."""
     if nmap is None:
         return []
     scanner = nmap.PortScanner()
@@ -172,7 +158,6 @@ def nm_scan_host(host_ip, top_ports=NMAP_TOP_PORTS):
     except Exception as e:
         print(f"[!] nmap wrapper error for {host_ip}: {e}")
         return []
-
     host_services = []
     if host_ip in scanner.all_hosts():
         for proto in scanner[host_ip].all_protocols():
@@ -220,7 +205,6 @@ def banner_grab(host_ip, port, timeout=BANNER_TIMEOUT):
 
 
 def detect_services(host_ip, ports, use_nmap=True):
-    """Return list of services {port,service,version,banner}"""
     services = []
     if use_nmap and nmap is not None:
         nmres = nm_scan_host(host_ip)
@@ -228,17 +212,12 @@ def detect_services(host_ip, ports, use_nmap=True):
             for e in nmres:
                 e["banner"] = banner_grab(host_ip, e["port"])
             return nmres
-
-    # fallback: TCP connect on ports list
     tcp_res = tcp_connect_scan(host_ip, ports)
     for e in tcp_res:
         e["banner"] = banner_grab(host_ip, e["port"])
     return tcp_res
 
 
-# -------------------------
-# Vulnerability matching
-# -------------------------
 def find_vulns_for_services(service_entries):
     findings = []
     for s in service_entries:
@@ -246,18 +225,16 @@ def find_vulns_for_services(service_entries):
         name = (s.get("service") or "").lower()
         ver = (s.get("version") or "").lower()
         banner = (s.get("banner") or "").lower()
-        # name/version/banner based simple matching
         for sig_port, desc in VULN_MAP.items():
             if sig_port == port:
                 findings.append({"port": port, "desc": desc})
-        # string matches (example)
         if "apache/2.4.49" in ver or "apache 2.4.49" in banner:
             findings.append({"port": port, "desc": "CVE-2021-41773 (Apache 2.4.49) - path traversal"})
     return findings
 
 
 # -------------------------
-# Orchestrator
+# Orchestrator (with injection points)
 # -------------------------
 def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
     ports = ports or DEFAULT_PORTS
@@ -268,8 +245,6 @@ def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
     if not hosts:
         print("[-] No hosts via ARP. Falling back to ping sweep...")
         hosts = ping_sweep(subnet)
-
-    # Final fallback: local host
     if not hosts:
         try:
             my_ip = socket.gethostbyname(socket.gethostname())
@@ -278,22 +253,32 @@ def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
         except Exception:
             print("[!] Could not determine local IP; exiting.")
             return None
-
-    # vendor enrichment
     hosts = enrich_vendors(hosts)
 
-    # scanning
+    # 🔹 Injection 1: Discovery results
+    print(f"[i] Discovery complete: {len(hosts)} hosts")
+    # e.g. send discovery to DB/API
+    # db.log_discovery(hosts)
+    # requests.post(WEBHOOK_URL, json={"discovery": hosts})
+
+    # Scanning
     results = {}
     start_time = time.time()
     ips = [h["ip"] for h in hosts]
+    meta_map = {h["ip"]: {k: v for k, v in h.items() if k != "ip"} for h in hosts}
 
     def worker(ip, meta):
         svc = detect_services(ip, ports, use_nmap=use_nmap)
         vulns = find_vulns_for_services(svc)
-        return ip, {"meta": meta, "services": svc, "vulns": vulns}
-
-    # prepare meta map
-    meta_map = {h["ip"]: {k: v for k, v in h.items() if k != "ip"} for h in hosts}
+        result = {"meta": meta, "services": svc, "vulns": vulns}
+        # 🔹 Injection 2: Per-host results
+        try:
+            # db.insert_host_scan(ip, result)
+            # requests.post(WEBHOOK_URL, json={"ip": ip, "result": result})
+            pass
+        except Exception as e:
+            print(f"[!] Injection error for {ip}: {e}")
+        return ip, result
 
     with ThreadPoolExecutor(max_workers=min(THREADS, max(1, len(ips)))) as exe:
         futures = {exe.submit(worker, ip, meta_map.get(ip, {})): ip for ip in ips}
@@ -304,7 +289,6 @@ def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
 
     duration = time.time() - start_time
 
-    # build unified payload
     payload = {
         "generated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "subnet": subnet,
@@ -312,21 +296,27 @@ def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
         "hosts": []
     }
     for ip, info in results.items():
-        entry = {
+        payload["hosts"].append({
             "ip": ip,
             "meta": info.get("meta", {}),
             "services": info.get("services", []),
             "vulns": info.get("vulns", [])
-        }
-        payload["hosts"].append(entry)
+        })
 
-    # save JSON & HTML
+    # 🔹 Injection 3: Final payload
+    try:
+        # db.save_pipeline_results(payload)
+        # requests.post(WEBHOOK_URL, json=payload)
+        pass
+    except Exception as e:
+        print(f"[!] Error pushing final payload: {e}")
+
+    # Save reports
     json_path, html_path = timestamped_paths("pipeline_report")
     if save_json:
         with open(json_path, "w", encoding="utf-8") as jf:
             json.dump(payload, jf, indent=2)
         print(f"[+] JSON report saved: {json_path}")
-
     if save_html:
         html = build_bootstrap_html(payload)
         with open(html_path, "w", encoding="utf-8") as hf:
@@ -337,18 +327,16 @@ def pipeline(subnet, ports=None, use_nmap=True, save_json=True, save_html=True):
 
 
 # -------------------------
-# HTML builder (Bootstrap)
+# HTML builder
 # -------------------------
 def build_bootstrap_html(payload):
     generated = payload.get("generated", "")
     subnet = payload.get("subnet", "")
     duration = payload.get("duration_seconds", 0.0)
     hosts = payload.get("hosts", [])
-
     total_hosts = len(hosts)
     total_ports = sum(len(h.get("services", [])) for h in hosts)
     total_vulns = sum(len(h.get("vulns", [])) for h in hosts)
-
     html = [
         "<!doctype html><html><head><meta charset='utf-8'>",
         "<meta name='viewport' content='width=device-width,initial-scale=1'>",
@@ -357,19 +345,15 @@ def build_bootstrap_html(payload):
         "<style>body{background:#f8f9fa;font-family:Arial,Helvetica,sans-serif} .card{margin-top:18px}</style>",
         "</head><body class='container py-4'>"
     ]
-
     html.append(f"<h1 class='mb-3'>🔍 SentinelCore Unified Report</h1>")
-    html.append(f"<p class='text-muted'>Generated: {generated} &nbsp;|&nbsp; Subnet: {subnet} &nbsp;|&nbsp; Duration: {duration:.1f}s</p>")
-
+    html.append(f"<p class='text-muted'>Generated: {generated} | Subnet: {subnet} | Duration: {duration:.1f}s</p>")
     html.append("<div class='row'>")
     html.append(f"<div class='col-md-4'><div class='card text-center'><div class='card-body'><h4>{total_hosts}</h4><p>Hosts</p></div></div></div>")
     html.append(f"<div class='col-md-4'><div class='card text-center'><div class='card-body'><h4>{total_ports}</h4><p>Open ports</p></div></div></div>")
     html.append(f"<div class='col-md-4'><div class='card text-center'><div class='card-body'><h4>{total_vulns}</h4><p>Potential vulns</p></div></div></div>")
     html.append("</div>")
-
     html.append("<div class='card mt-4'><div class='card-body'><h3>Host Details</h3>")
     html.append("<table class='table table-striped table-hover'><thead><tr><th>IP</th><th>MAC</th><th>Vendor</th><th>Open Ports</th><th>Vulnerabilities</th></tr></thead><tbody>")
-
     for host in hosts:
         ip = host.get("ip")
         meta = host.get("meta", {})
@@ -377,11 +361,9 @@ def build_bootstrap_html(payload):
         vendor = meta.get("vendor", "") or "N/A"
         services = host.get("services", [])
         vulns = host.get("vulns", [])
-
         ports_html = " ".join([f"<span class='badge bg-success me-1'>{s['port']}/{s.get('service','')}</span>" for s in services]) or "None"
-        vulns_html = "<br>".join([f"<span class='badge bg-danger'>{v['port']}: {v['desc'] if 'desc' in v else v.get('desc','')}</span>" if isinstance(v, dict) else str(v) for v in vulns]) or "None"
+        vulns_html = "<br>".join([f"<span class='badge bg-danger'>{v['port']}: {v['desc']}</span>" for v in vulns]) or "None"
         html.append(f"<tr><td>{ip}</td><td>{mac}</td><td>{vendor}</td><td>{ports_html}</td><td>{vulns_html}</td></tr>")
-
     html.append("</tbody></table></div></div></body></html>")
     return "\n".join(html)
 
@@ -397,12 +379,9 @@ def main_cli():
     p.add_argument("--no-json", action="store_true", help="Don't save JSON")
     p.add_argument("--no-html", action="store_true", help="Don't save HTML")
     args = p.parse_args()
-
     ports = [int(x.strip()) for x in args.ports.split(",") if x.strip()]
     use_nmap = (not args.no_nmap) and (nmap is not None)
-
     payload = pipeline(args.subnet, ports=ports, use_nmap=use_nmap, save_json=(not args.no_json), save_html=(not args.no_html))
-
     if payload:
         print("[+] Pipeline complete - results saved in Reports/")
 
