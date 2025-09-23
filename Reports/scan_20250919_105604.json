@@ -1,0 +1,28 @@
+{
+  "192.168.8.116": {
+    "meta": {
+      "mac": "N/A",
+      "vendor": "Localhost"
+    },
+    "services": [
+      {
+        "port": 139,
+        "service": "netbios-ssn"
+      },
+      {
+        "port": 445,
+        "service": "microsoft-ds"
+      }
+    ],
+    "vulns": [
+      {
+        "port": 139,
+        "note": "SMB: Possible EternalBlue risk"
+      },
+      {
+        "port": 445,
+        "note": "SMB: Possible EternalBlue risk"
+      }
+    ]
+  }
+}

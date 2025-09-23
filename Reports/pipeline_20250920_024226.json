@@ -1,0 +1,62 @@
+{
+  "192.168.8.1": {
+    "meta": {
+      "mac": "74:59:09:70:8e:67",
+      "vendor": "HUAWEI TECHNOLOGIES CO.,LTD"
+    },
+    "services": [
+      {
+        "port": 80,
+        "service": "http"
+      }
+    ],
+    "vulns": [
+      {
+        "port": 80,
+        "note": "HTTP: Ensure server patches and TLS redirect"
+      }
+    ]
+  },
+  "192.168.8.116": {
+    "meta": {
+      "mac": "bc:54:2f:7a:cb:f5",
+      "vendor": "Intel Corporate"
+    },
+    "services": [
+      {
+        "port": 139,
+        "service": "netbios-ssn"
+      },
+      {
+        "port": 445,
+        "service": "microsoft-ds"
+      }
+    ],
+    "vulns": [
+      {
+        "port": 139,
+        "note": "SMB: Possible EternalBlue risk"
+      },
+      {
+        "port": 445,
+        "note": "SMB: Possible EternalBlue risk"
+      }
+    ]
+  },
+  "192.168.8.192": {
+    "meta": {
+      "mac": "fe:e4:8c:a6:8c:80",
+      "vendor": ""
+    },
+    "services": [],
+    "vulns": []
+  },
+  "192.168.8.176": {
+    "meta": {
+      "mac": "c2:27:b6:21:19:ef",
+      "vendor": ""
+    },
+    "services": [],
+    "vulns": []
+  }
+}

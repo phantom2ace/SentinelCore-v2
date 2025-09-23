@@ -1,0 +1,673 @@
+{
+  "generated": "2025-09-23 10:50:08",
+  "subnet": "10.96.0.0/24",
+  "duration_seconds": 181.23980498313904,
+  "hosts": [
+    {
+      "ip": "10.96.0.153",
+      "meta": {
+        "mac": "ae:30:a1:87:f1:bc",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 49152,
+          "service": "tcpwrapped",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.14",
+      "meta": {
+        "mac": "6e:28:c1:c6:9a:cc",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 49152,
+          "service": "tcpwrapped",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.197",
+      "meta": {
+        "mac": "fa:0e:70:98:e5:10",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.144",
+      "meta": {
+        "mac": "76:08:2b:e0:72:61",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.124",
+      "meta": {
+        "mac": "fa:de:11:c2:f1:83",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.203",
+      "meta": {
+        "mac": "82:a5:83:6f:f6:8a",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.117",
+      "meta": {
+        "mac": "aa:ec:79:86:aa:e3",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.64",
+      "meta": {
+        "mac": "86:30:cd:15:a9:b8",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.61",
+      "meta": {
+        "mac": "b2:a1:02:f9:a2:76",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.87",
+      "meta": {
+        "mac": "5e:03:76:e2:c3:8c",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.213",
+      "meta": {
+        "mac": "ca:aa:a4:96:bb:ad",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.194",
+      "meta": {
+        "mac": "3a:04:58:f9:b6:62",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.125",
+      "meta": {
+        "mac": "32:a9:39:3c:4a:fe",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.207",
+      "meta": {
+        "mac": "6e:b2:90:bb:d5:29",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.113",
+      "meta": {
+        "mac": "1e:b8:4d:65:0f:24",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.234",
+      "meta": {
+        "mac": "9e:22:4d:07:dc:04",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.115",
+      "meta": {
+        "mac": "50:e0:85:17:6e:9d",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 3306,
+          "service": "mysql",
+          "version": "MySQL",
+          "banner": "D\u0000\u0000\u0000j\u0004Host '10.96.0.130' is not allowed to connect to this MySQL server"
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.59",
+      "meta": {
+        "mac": "8a:e7:e4:e0:8f:9b",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.110",
+      "meta": {
+        "mac": "ee:e8:3d:1c:05:b8",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 106,
+          "service": "pop3pw",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 873,
+          "service": "rsync",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 49152,
+          "service": "tcpwrapped",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.50",
+      "meta": {
+        "mac": "da:cc:7c:40:c4:df",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.109",
+      "meta": {
+        "mac": "ee:48:3d:6c:dc:83",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.96",
+      "meta": {
+        "mac": "d8:f8:83:8f:0e:08",
+        "vendor": "Intel Corporate"
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.84",
+      "meta": {
+        "mac": "ba:bb:5b:35:ab:3e",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.150",
+      "meta": {
+        "mac": "70:1c:e7:13:e1:1a",
+        "vendor": "Intel Corporate"
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.123",
+      "meta": {
+        "mac": "3a:6a:d6:6b:7e:b8",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.133",
+      "meta": {
+        "mac": "56:c4:53:45:cb:2b",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.79",
+      "meta": {
+        "mac": "da:c8:bb:ce:b3:fb",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.173",
+      "meta": {
+        "mac": "82:fb:ef:df:74:68",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.130",
+      "meta": {
+        "mac": "bc:54:2f:7a:cb:f5",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 135,
+          "service": "msrpc",
+          "version": "Microsoft Windows RPC",
+          "banner": ""
+        },
+        {
+          "port": 139,
+          "service": "netbios-ssn",
+          "version": "Microsoft Windows netbios-ssn",
+          "banner": ""
+        },
+        {
+          "port": 445,
+          "service": "microsoft-ds",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 139,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        },
+        {
+          "port": 445,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.41",
+      "meta": {
+        "mac": "68:34:21:34:7f:88",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "version": "10.0",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 80,
+          "desc": "HTTP: check outdated web server / path traversal"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.119",
+      "meta": {
+        "mac": "8a:5e:f0:ec:6c:8d",
+        "vendor": ""
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.138",
+      "meta": {
+        "mac": "68:72:c3:e9:f0:6e",
+        "vendor": "Samsung Electronics Co.,Ltd"
+      },
+      "services": [
+        {
+          "port": 8080,
+          "service": "http",
+          "version": "lighttpd",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.12",
+      "meta": {
+        "mac": "64:5d:86:1b:79:e3",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 3389,
+          "service": "ms-wbt-server",
+          "version": "Microsoft Terminal Services",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 3389,
+          "desc": "RDP: ensure strong authentication and MFA"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.104",
+      "meta": {
+        "mac": "c8:cb:9e:0b:95:eb",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 135,
+          "service": "msrpc",
+          "version": "Microsoft Windows RPC",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.141",
+      "meta": {
+        "mac": "7c:70:db:4a:d6:20",
+        "vendor": "Intel Corporate"
+      },
+      "services": [],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.237",
+      "meta": {
+        "mac": "a0:88:69:26:12:86",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 5357,
+          "service": "http",
+          "version": "2.0",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.99",
+      "meta": {
+        "mac": "80:86:f2:73:05:78",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 135,
+          "service": "msrpc",
+          "version": "Microsoft Windows RPC",
+          "banner": ""
+        },
+        {
+          "port": 5357,
+          "service": "http",
+          "version": "2.0",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.151",
+      "meta": {
+        "mac": "d8:80:83:9a:97:c3",
+        "vendor": "CLOUD NETWORK TECHNOLOGY SINGAPORE PTE. LTD."
+      },
+      "services": [
+        {
+          "port": 135,
+          "service": "msrpc",
+          "version": "Microsoft Windows RPC",
+          "banner": ""
+        },
+        {
+          "port": 139,
+          "service": "netbios-ssn",
+          "version": "Microsoft Windows netbios-ssn",
+          "banner": ""
+        },
+        {
+          "port": 445,
+          "service": "microsoft-ds",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 139,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        },
+        {
+          "port": 445,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.155",
+      "meta": {
+        "mac": "7c:70:db:4b:2d:73",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 990,
+          "service": "ftps",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 7070,
+          "service": "realserver",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.102",
+      "meta": {
+        "mac": "dc:fb:48:e8:32:da",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 7070,
+          "service": "realserver",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.44",
+      "meta": {
+        "mac": "e0:06:e6:f3:3f:6b",
+        "vendor": "Hon Hai Precision Ind. Co.,Ltd."
+      },
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "version": "2.0",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 80,
+          "desc": "HTTP: check outdated web server / path traversal"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.184",
+      "meta": {
+        "mac": "38:22:e2:fe:c6:e1",
+        "vendor": "HP Inc."
+      },
+      "services": [
+        {
+          "port": 80,
+          "service": "http",
+          "version": "nginx",
+          "banner": ""
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "version": "nginx",
+          "banner": ""
+        },
+        {
+          "port": 515,
+          "service": "printer",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 631,
+          "service": "http",
+          "version": "nginx",
+          "banner": ""
+        },
+        {
+          "port": 8080,
+          "service": "http",
+          "version": "nginx",
+          "banner": ""
+        },
+        {
+          "port": 9100,
+          "service": "jetdirect",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 80,
+          "desc": "HTTP: check outdated web server / path traversal"
+        }
+      ]
+    },
+    {
+      "ip": "10.96.0.140",
+      "meta": {
+        "mac": "7c:70:db:4b:1b:44",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 990,
+          "service": "ftps",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 7070,
+          "service": "realserver",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.43",
+      "meta": {
+        "mac": "04:b9:e3:62:9e:70",
+        "vendor": "Samsung Electronics Co.,Ltd"
+      },
+      "services": [
+        {
+          "port": 8080,
+          "service": "http-proxy",
+          "version": "WebServer",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    },
+    {
+      "ip": "10.96.0.52",
+      "meta": {
+        "mac": "5e:40:f7:95:76:f2",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 49152,
+          "service": "tcpwrapped",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 49153,
+          "service": "",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": []
+    }
+  ]
+}

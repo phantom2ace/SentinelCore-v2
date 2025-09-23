@@ -1,0 +1,36 @@
+{
+  "generated": "2025-09-23 09:39:38",
+  "subnet": "192.168.8.0/24",
+  "duration_seconds": 1.546574354171753,
+  "hosts": [
+    {
+      "ip": "192.168.8.1",
+      "meta": {
+        "mac": "N/A",
+        "vendor": ""
+      },
+      "services": [
+        {
+          "port": 22,
+          "service": "ssh",
+          "banner": "SSH-2.0-ROSSSH"
+        },
+        {
+          "port": 80,
+          "service": "http",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 22,
+          "desc": "SSH: test for weak creds / outdated OpenSSH"
+        },
+        {
+          "port": 80,
+          "desc": "HTTP: check outdated web server / path traversal"
+        }
+      ]
+    }
+  ]
+}
