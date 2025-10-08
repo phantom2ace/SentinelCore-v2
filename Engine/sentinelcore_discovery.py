@@ -111,6 +111,7 @@ def save_reports(hosts):
 def main():
     parser = argparse.ArgumentParser(description="SentinelCore Network Discovery Tool")
     parser.add_argument("--subnet", required=True, help="Subnet to scan (e.g. 192.168.1.0/24)")
+    parser.add_argument("--json", action="store_true", help="Output results in JSON format")
     args = parser.parse_args()
 
     hosts = arp_scan(args.subnet)
@@ -121,9 +122,19 @@ def main():
 
     if not hosts:
         print("[-] No live hosts discovered.")
+        output = {"subnet": args.subnet, "hosts": []}
     else:
-        save_reports(hosts)
+        output = {"subnet": args.subnet, "hosts": hosts}
 
+    # --------------------
+    # Handle output here 👇
+    # --------------------
+    if args.json:
+        # Print JSON to stdout (Flask will capture this)
+        print(json.dumps(output, indent=4))
+    else:
+        # Save reports as files
+        save_reports(hosts)
 
 if __name__ == "__main__":
     main()

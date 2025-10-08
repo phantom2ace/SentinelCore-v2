@@ -1,0 +1,83 @@
+{
+  "generated": "2025-09-24 21:59:16",
+  "subnet": "192.168.8.0/24",
+  "duration_seconds": 28.53673791885376,
+  "hosts": [
+    {
+      "ip": "192.168.8.116",
+      "meta": {
+        "mac": "bc:54:2f:7a:cb:f5",
+        "vendor": "Intel Corporate"
+      },
+      "services": [
+        {
+          "port": 135,
+          "service": "msrpc",
+          "version": "Microsoft Windows RPC",
+          "banner": ""
+        },
+        {
+          "port": 139,
+          "service": "netbios-ssn",
+          "version": "Microsoft Windows netbios-ssn",
+          "banner": ""
+        },
+        {
+          "port": 445,
+          "service": "microsoft-ds",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 139,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        },
+        {
+          "port": 445,
+          "desc": "SMB: possible EternalBlue risk if unpatched"
+        }
+      ]
+    },
+    {
+      "ip": "192.168.8.1",
+      "meta": {
+        "mac": "74:59:09:70:8e:67",
+        "vendor": "HUAWEI TECHNOLOGIES CO.,LTD"
+      },
+      "services": [
+        {
+          "port": 53,
+          "service": "tcpwrapped",
+          "version": "",
+          "banner": ""
+        },
+        {
+          "port": 80,
+          "service": "http",
+          "version": "Huawei router http admin",
+          "banner": ""
+        },
+        {
+          "port": 443,
+          "service": "http",
+          "version": "Huawei router http admin",
+          "banner": ""
+        },
+        {
+          "port": 3000,
+          "service": "ppp",
+          "version": "",
+          "banner": ""
+        }
+      ],
+      "vulns": [
+        {
+          "port": 80,
+          "desc": "HTTP: check outdated web server / path traversal"
+        }
+      ]
+    }
+  ]
+}

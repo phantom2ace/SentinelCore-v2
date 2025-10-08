@@ -6,10 +6,21 @@ Exposes endpoints for discovery, scanning, and full pipeline
 
 from flask import Flask, request, jsonify
 from Engine.sentinelcore_pipeline import pipeline
+from Engine import sentinelcore_pipeline, sentinelcore_db
+import json
 import subprocess
 import os
 
 app = Flask(__name__)
+
+
+# -----------------------------
+# 0. Health Check
+# -----------------------------
+@app.route("/status", methods=["GET"])
+def status():
+    return jsonify({"status": "ok", "message": "SentinelCore API is running"}), 200
+
 
 # -----------------------------
 # 1. Pipeline Endpoint
@@ -40,10 +51,18 @@ def discovery():
 
     cmd = ["python", "Engine/sentinelcore_discovery.py", "--subnet", subnet, "--json"]
     try:
-        subprocess.run(cmd, check=True)
-        return jsonify({"status": "Discovery complete", "subnet": subnet}), 200
+        # capture_output=True allows us to get the printed JSON from the script
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+        # Convert the printed JSON into Python dict
+        output = json.loads(result.stdout)
+
+        return jsonify(output), 200
     except subprocess.CalledProcessError as e:
         return jsonify({"error": str(e)}), 500
+    except json.JSONDecodeError:
+        return jsonify({"error": "Failed to parse discovery output"}), 500
+
 
 # -----------------------------
 # 3. Scan Endpoint
